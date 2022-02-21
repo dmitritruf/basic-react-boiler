@@ -27,7 +27,8 @@ class DishDetail extends Component {
         return comments;
     }
     render() {
-        const dish = this.props.dishes;
+        const dish = this.props.dish;
+        console.log("DishDetail k andar hai");
 
         
         // const comments = dish.comments.map((comment) => {
@@ -37,6 +38,7 @@ class DishDetail extends Component {
         // });
         if (dish != null)
             return (
+                <div class="container">
                 <div key={dish.id} className="row">
                     <div className="col-12 col-md-5 m-1">
                         <Card>
@@ -54,6 +56,7 @@ class DishDetail extends Component {
                     </div>
 
 
+                </div>
                 </div>
             )
 
