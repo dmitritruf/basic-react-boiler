@@ -1,70 +1,53 @@
-import React, { Component } from 'react';
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle
-} from 'reactstrap';
-class DishDetail extends Component {
+import React from "react";
+import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 
-    constructor(props) {
-        super(props);
+function GetComments({ dish }) {
+    if (dish == null) return <div></div>;
+    const comments = dish.comments.map((comment) => {
+        return (
+            <p>
+                {comment.comment}
+                <br />
+                --{comment.author}, {comment.date}
+            </p>
+        );
+    });
 
-        this.state = {
+    return comments;
+}
 
-        }
-    }
+function RenderDish({ dish }) {
+    return (
+        <Card>
+            <CardImg top src={dish.image} alt={dish.name} />
+            <CardBody>
+                <CardTitle>{dish.name}</CardTitle>
+                <CardText>{dish.description}</CardText>
+            </CardBody>
+        </Card>
+    );
+}
+const DishDetail = (props) => {
+    //const dish = this.props.dish;
+    console.log("DishDetail k andar hai");
 
-    getComments(dish){
-        if(dish == null)
-            return (
-                <div></div>
-            )
-        const comments = dish.comments.map((comment) => {
-                return (
-                    <p>{comment.comment}<br />--{comment.author}, {comment.date}</p>
-                );
-            });
-
-        return comments;
-    }
-    render() {
-        const dish = this.props.dish;
-        console.log("DishDetail k andar hai");
-
-        
-        // const comments = dish.comments.map((comment) => {
-        //     return (
-        //         <p>{comment.comment}<br />--{comment.author}, {comment.date}</p>
-        //     );
-        // });
-        if (dish != null)
-            return (
-                <div class="container">
-                <div key={dish.id} className="row">
+    if (props.dish != null)
+        return (
+            <div class="container">
+                <div key={props.dish.id} className="row">
                     <div className="col-12 col-md-5 m-1">
-                        <Card>
-                            <CardImg top src={dish.image} alt={dish.name} />
-                            <CardBody>
-                                <CardTitle>{dish.name}</CardTitle>
-                                <CardText>{dish.description}</CardText>
-                            </CardBody>
-                        </Card>
+                        <RenderDish dish={props.dish}></RenderDish>
                     </div>
-                    <div key={dish.id} className="col-12 col-md-5 m-1">
+                    <div key={props.dish.id} className="col-12 col-md-5 m-1">
                         <h1>Comments</h1>
-                        {this.getComments(dish)}
+                        <GetComments dish={props.dish}></GetComments>
                         {/* <p>{dish.comments.comment}<br />--{dish.comments.author}, {dish.comments.date}</p> */}
                     </div>
-
-
                 </div>
-                </div>
-            )
-
-        return (
-            <div></div>
+            </div>
         );
 
+    return <div></div>;
+};
 
-    }
-}
 export default DishDetail;
